@@ -10,6 +10,47 @@ const SignUpPage = ({ navigation }) => {
   const [address, setAddress] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const InsertUser = async () => {
+    try {
+      const response = await fetch('http://192.168.1.32:8000/api/customers/insert', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: fullName,
+          email: email,
+          phone: phone,
+          password: password,
+          address: address,
+        }),
+      });
+  
+      const text = await response.text(); // Get raw response as text
+      console.log('Raw response text:', text); // Debugging log
+  
+      try {
+        const data = JSON.parse(text); // Try to parse JSON
+        console.log('Parsed JSON:', data); // Debugging log
+  
+        if (response.ok) {
+          alert('User successfully inserted!');
+        } else {
+          alert('Failed to insert user: ' + (data.message || 'Unknown error'));
+        }
+      } catch (jsonError) {
+        console.error('JSON Parse Error:', jsonError);
+        alert('Server returned invalid JSON. Raw response:\n\n' + text);
+      }
+  
+    } catch (error) {
+      console.error('Fetch Error:', error);
+      alert('Network error: ' + error.message);
+    }
+  };
+  
+  
+
   return (
     <View style={SignUpCSS.container}>
         
@@ -76,6 +117,11 @@ const SignUpPage = ({ navigation }) => {
           multiline={true}
           numberOfLines={4}
         />
+
+        <TouchableOpacity style={SignUpCSS.submitButton} onPress={InsertUser}>
+          <Text style={SignUpCSS.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
+
 
       </ScrollView>
     </View>

@@ -5,6 +5,20 @@ export const LoginCSS = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
+  loginButton: {
+    backgroundColor: '#4CAF50',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  
+  loginButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -5,6 +5,19 @@ export const SignUpCSS = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
+  submitButton: {
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

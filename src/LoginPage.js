@@ -7,6 +7,37 @@ const LoginPage = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  const LoginCustomer = async () => {
+    try {
+      const response = await fetch('http://192.168.1.32:8000/api/login/customers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+  
+      const text = await response.text();
+      console.log('Raw response:', text);
+  
+      const data = JSON.parse(text);
+  
+      if (response.ok) {
+        alert('Login successful!');
+        navigation.navigate('Home');
+      } else {
+        alert(data.message || 'Login failed');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+  
+  
+
   return (
     <View style={LoginCSS.container}>
       {/* Header */}
@@ -48,6 +79,10 @@ const LoginPage = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
+
+        <TouchableOpacity style={LoginCSS.loginButton} onPress={LoginCustomer}>
+            <Text style={LoginCSS.loginButtonText}>Login</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity style={LoginCSS.signupContainer} onPress={() => navigation.navigate('SignUpPage')}>
             <Text style={LoginCSS.signupText}>No account? Sign Up</Text>

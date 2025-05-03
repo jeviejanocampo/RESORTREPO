@@ -1,11 +1,32 @@
-import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, TouchableOpacity, Text, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginCSS } from './css/login-page-css';
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem('rememberEmail').then((savedEmail) => {
+      if (savedEmail) {
+        setEmail(savedEmail);
+        setRememberMe(true);
+      }
+    });
+  }, []);
+
+  const toggleRememberMe = async () => {
+    const value = !rememberMe;
+    setRememberMe(value);
+    if (value) {
+      await AsyncStorage.setItem('rememberEmail', email);
+    } else {
+      await AsyncStorage.removeItem('rememberEmail');
+    }
+  };
 
   const LoginCustomer = async () => {
     try {
@@ -19,12 +40,10 @@ const LoginPage = ({ navigation }) => {
           password: password,
         }),
       });
-  
+
       const text = await response.text();
-      console.log('Raw response:', text);
-  
       const data = JSON.parse(text);
-  
+
       if (response.ok) {
         alert('Login successful!');
         navigation.navigate('Home');
@@ -35,23 +54,17 @@ const LoginPage = ({ navigation }) => {
       alert('Error: ' + error.message);
     }
   };
-  
-  
 
   return (
     <View style={LoginCSS.container}>
-      {/* Header */}
       <View style={LoginCSS.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={LoginCSS.backText}>Back</Text>
         </TouchableOpacity>
       </View>
 
-
-
       <View style={LoginCSS.formContainer}>
-
-      <Text style={LoginCSS.headerTitle}>Janilyn Resort</Text>
+        <Text style={LoginCSS.headerTitle}>Janilyn Resort</Text>
 
         <TextInput
           style={LoginCSS.input}
@@ -80,12 +93,19 @@ const LoginPage = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
+        <View style={LoginCSS.rememberContainer}>
+          <Pressable onPress={toggleRememberMe} style={LoginCSS.checkbox}>
+            {rememberMe && <View style={LoginCSS.checkboxChecked} />}
+          </Pressable>
+          <Text style={LoginCSS.rememberText}>Remember Me</Text>
+        </View>
+
         <TouchableOpacity style={LoginCSS.loginButton} onPress={LoginCustomer}>
-            <Text style={LoginCSS.loginButtonText}>Login</Text>
+          <Text style={LoginCSS.loginButtonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={LoginCSS.signupContainer} onPress={() => navigation.navigate('SignUpPage')}>
-            <Text style={LoginCSS.signupText}>No account? Sign Up</Text>
+          <Text style={LoginCSS.signupText}>No account? Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>

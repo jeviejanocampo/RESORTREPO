@@ -13,6 +13,32 @@ export const LoginCSS = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
+  rememberContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    borderColor: '#000',
+    marginRight: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  
+  checkboxChecked: {
+    width: 12,
+    height: 12,
+    backgroundColor: '#000',
+  },
+  
+  rememberText: {
+    fontSize: 14,
+    color: '#000',
+  },
   
   loginButtonText: {
     color: '#fff',
@@ -92,4 +118,5 @@ export const LoginCSS = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  
 });

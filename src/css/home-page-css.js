@@ -34,40 +34,4 @@ export const HomePageCSS = StyleSheet.create({
     fontSize: 18,
     color: '#007bff',
   },
-  rememberContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#333',
-    marginRight: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  
-  checkboxChecked: {
-    width: 12,
-    height: 12,
-    backgroundColor: '#333',
-  },
-  
-  rememberText: {
-    fontSize: 14,
-    color: '#444',
-  },
-  
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 20,
-    width: '100%',
-  },
-  
 });

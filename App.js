@@ -5,6 +5,7 @@ import LandingPage from './src/LandingPage';
 import LoginPage from './src/LoginPage';
 import SignUpPage from './src/SignupPage';
 import Home from './src/main/Home';
+import RoomPage from './src/main/pages/RoomPage';
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ function App() {
         <Stack.Screen name="LoginPage" component={LoginPage} />
         <Stack.Screen name="SignUpPage" component={SignUpPage} /> 
         <Stack.Screen name="Home" component={Home} /> 
+        <Stack.Screen name="RoomPage" component={RoomPage} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );
